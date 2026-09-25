@@ -83,11 +83,9 @@ const searchClasses = computed(() => [
 </script>
 
 <template>
-    <!-- SEARCH -->
     <input v-if="type === 'search'" v-model="inputValue" type="search" :placeholder="placeholder" :disabled="disabled"
         :class="searchClasses" />
 
-    <!-- RANGE -->
     <input v-else v-model.number="inputValue" type="range" :min="min" :max="max" :step="step" :disabled="disabled"
         :style="{
             '--progress': rangeProgress,

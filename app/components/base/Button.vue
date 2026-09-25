@@ -31,6 +31,7 @@ interface Props {
     rounded?: boolean
     disabled?: boolean
     loading?: boolean
+    active?: boolean
     type?: 'button' | 'submit' | 'reset'
     fullWidth?: boolean
 }
@@ -42,6 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
     rounded: true,
     disabled: false,
     loading: false,
+    active: false,
     type: 'button',
     fullWidth: false,
 })
@@ -52,6 +54,7 @@ const colors: Record<
         background: string
         text: string
         hover: string
+        active?: string
     }
 > = {
     white: {
@@ -70,6 +73,7 @@ const colors: Record<
         background: '#EFEDED',
         text: '#1B1C1C',
         hover: '#E2E0E0',
+        active: '#E9E8E7'
     },
 
     darkGrey: {
@@ -94,6 +98,7 @@ const buttonClasses = computed(() => [
     'focus-visible:ring-offset-2',
     'disabled:pointer-events-none',
     'disabled:opacity-50',
+    'shrink-0',
 
     props.rounded ? 'rounded-full' : 'rounded-2xl',
 
@@ -127,32 +132,26 @@ const buttonStyles = computed(() => ({
     '--button-background': currentColor.value.background,
     '--button-text': currentColor.value.text,
     '--button-hover': currentColor.value.hover,
+    '--button-active':
+        currentColor.value.active ?? currentColor.value.background,
 
-    backgroundColor: 'var(--button-background)',
+    backgroundColor: props.active
+        ? 'var(--button-active)'
+        : 'var(--button-background)',
+
     color: 'var(--button-text)',
 }))
 </script>
 
 <template>
-    <button
-        :type="type"
-        :disabled="isDisabled"
-        :class="buttonClasses"
-        :style="{
-            ...buttonStyles,
-            '--button-hover': currentColor.hover,
-        }"
-    >
-        <span
-            v-if="loading"
-            class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-            aria-hidden="true"
-        />
+    <button :type="type" :disabled="isDisabled" :class="buttonClasses" :style="{
+        ...buttonStyles,
+        '--button-hover': currentColor.hover,
+    }">
+        <span v-if="loading" class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+            aria-hidden="true" />
 
-        <span
-            v-if="$slots.icon && !loading"
-            class="shrink-0"
-        >
+        <span v-if="$slots.icon && !loading" class="shrink-0">
             <slot name="icon" />
         </span>
 
