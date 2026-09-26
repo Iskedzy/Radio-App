@@ -18,6 +18,7 @@ interface Props {
     name: string
     size?: IconSize
     alt?: string
+    color?:string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -35,5 +36,5 @@ const iconPath = computed(() => {
 </script>
 
 <template>
-    <img :src="iconPath" :alt="alt" :class="iconClasses"/> 
+    <img :src="iconPath" :alt="alt" :class="iconClasses" /> 
 </template> 

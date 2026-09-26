@@ -25,11 +25,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const imageSizes: Record<ImageSize, string> = {
-    xs: 'w-2',
-    sm: 'w-3',
+    xs: 'w-[3rem]',
+    sm: 'w-[5rem]',
     md: 'w-[10rem]',
-    lg: 'w-[20rem]',
-    xl: 'w-[30rem]',
+    lg: 'w-[15rem]',
+    xl: 'w-[18rem]',
 }
 
 const imageTypes: Record<ImageType, String> = {

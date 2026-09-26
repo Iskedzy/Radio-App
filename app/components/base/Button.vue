@@ -23,6 +23,7 @@ type ButtonColor =
     | 'red'
     | 'lightGrey'
     | 'darkGrey'
+    | 'snow'
 
 interface Props {
     variant?: ButtonVariant
@@ -70,6 +71,12 @@ const colors: Record<
         background: '#BA0036',
         text: '#FFFFFF',
         hover: '#9E002E',
+    },
+
+    snow: {
+        background: '#F5F3F3',
+        text: '#1B1C1C',
+        hover: '#E2E0E0',
     },
 
     lightGrey: {

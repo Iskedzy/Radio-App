@@ -68,7 +68,7 @@ const rangeProgress = computed(() => {
 const searchClasses = computed(() => [
     'w-full',
     'rounded-full',
-    'bg-[#EFEDED]',
+    'bg-[#F5F3F3]',
     'px-4',
     'text-[#1B1C1C]',
     'placeholder:text-[#5F5E5E]',

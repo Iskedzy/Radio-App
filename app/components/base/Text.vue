@@ -4,6 +4,7 @@ import { computed } from 'vue';
 type TextType =
     | 'h1'
     | 'h2'
+    | 'h3'
     | 'p'
 
 type TextSize =
@@ -18,11 +19,19 @@ type TextColor =
     | 'red'
     | 'lightGrey'
     | 'darkGrey'
+    | 'brown'
+
+type TextTracking = 
+    | 'none'
+    | 'wide'
+    | 'wider'
+    | 'widest'
 
 interface Props {
     type?: TextType
     size?: TextSize
     color?: TextColor
+    track?: TextTracking
     textFont?: string
 }
 
@@ -30,18 +39,28 @@ const props = withDefaults(defineProps<Props>(), {
     type: 'p',
     size: 'sm',
     color: 'darkGrey',
+    track: 'none' ,
     textFont : 'Inter',
 })
+
+const TextTrack: Record<TextTracking, string> = {
+    none : 'tracking-none',
+    wide : 'tracking-wide',
+    wider : 'tracking-wider',
+    widest : 'tracking-widest'
+}
 
 const TextColor: Record<TextColor, string> = {
     red: 'text-[#BA0036]',
     lightGrey: 'text-[#5F5E5E]',
-    darkGrey: 'text-[#1B1C1C]'
+    darkGrey: 'text-[#1B1C1C]',
+    brown: 'text-[#5C3F41]'
 }
 
 const TextTypes: Record<TextType, string> = {
-    h1: 'font-bold',
-    h2: 'font-semibold',
+    h1: 'font-black',
+    h2: 'font-bold',
+    h3: 'font-semibold',
     p: 'font-normal',
 }
 
@@ -58,6 +77,7 @@ const CurrentClass = computed(() => [
     TextTypes[props.type],
     TextSizes[props.size],
     TextColor[props.color],
+    TextTrack[props.track],
     props.textFont
 ])
 
