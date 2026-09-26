@@ -24,13 +24,13 @@ const { placeholder } = usePlaceholder();
     <BaseIcon
       name="search"
       size="sm"
-      class="absolute left-8 top-1/2 -translate-y-1/2"
+      class="absolute left-9 lg:left-5 top-1/2 -translate-y-1/2"
     />
 
     <BaseInput
       :placeholder="placeholder"
       size="md"
-      :class="['pl-9', props.type === 'Mobile' ? 'rounded-full shadow' : '']"
+      :class="['pl-10 lg:pl-10', props.type === 'Mobile' ? 'rounded-full shadow' : '']"
     />
   </div>
 </template>

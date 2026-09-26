@@ -32,6 +32,7 @@ interface Props {
     disabled?: boolean
     loading?: boolean
     active?: boolean
+    activeText?: boolean
     type?: 'button' | 'submit' | 'reset'
     fullWidth?: boolean
 }
@@ -54,12 +55,14 @@ const colors: Record<
         background: string
         text: string
         hover: string
+        activeText?: string
         active?: string
     }
 > = {
     white: {
         background: '#FFFFFF',
         text: '#1B1C1C',
+        activeText: '#BA0036',
         hover: '#F5F5F5',
     },
 
@@ -134,12 +137,17 @@ const buttonStyles = computed(() => ({
     '--button-hover': currentColor.value.hover,
     '--button-active':
         currentColor.value.active ?? currentColor.value.background,
+    '--button-active-text':
+        currentColor.value.activeText ?? currentColor.value.text,
+
 
     backgroundColor: props.active
         ? 'var(--button-active)'
         : 'var(--button-background)',
 
-    color: 'var(--button-text)',
+    color: props.active
+        ? 'var(--button-active-text)'
+        : 'var(--button-text)',
 }))
 </script>
 
