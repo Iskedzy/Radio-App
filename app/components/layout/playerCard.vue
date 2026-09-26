@@ -20,13 +20,11 @@ const checkOverflow = async () => {
     containerWidth.value = container.value.clientWidth
     contentWidth.value = content.value.scrollWidth
 
-    // Hanya marquee kalau benar-benar overflow
     if (contentWidth.value > containerWidth.value) {
         shouldScroll.value = true
 
         const distance = contentWidth.value - containerWidth.value
 
-        // Semakin panjang text, semakin lama animasinya
         duration.value = Math.max(3, distance / 40)
     } else {
         shouldScroll.value = false
@@ -115,7 +113,7 @@ onUnmounted(() => {
 
                 <BaseButton variant="primary" :rounded="true" color="red" size="sm"
                     class="flex justify-center items-center w-[4rem] h-[4rem] shrink-0">
-                    <BaseIcon name="play-white" size="md" class="rounded-full" />
+                    <BaseIcon name="play-white" size="md"/>
                 </BaseButton>
             </div>
 

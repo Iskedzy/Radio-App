@@ -23,23 +23,36 @@ const Genres = ref<Genre[]>([
     },
 ])
 
+const activeGenre = ref(1)
+
+const selectGenre = (id: number) => {
+    activeGenre.value = id
+}
+
 </script>
 
 <template>
-    <div class="flex w-full flex-row gap-1.5 overflow-x-auto py-1.5">
-        <div
-            v-for="genre in Genres"
-            :key="genre.id"
-            class="shrink-0"
-        >
-            <BaseButton
-                variant="ghost"
-                size="sm"
-                color="snow"
-                class="px-5 py-2"
-            >
+    <div class="flex w-full flex-row gap-1.5 overflow-x-auto py-1.5 hide-scrollbar">
+        <div v-for="genre in Genres" :key="genre.id" class="shrink-0">
+            <BaseButton variant="ghost" size="sm" color="snow" :active="activeGenre === genre.id" class="px-5 py-2"
+            @click="selectGenre(genre.id)">
                 {{ genre.name }}
             </BaseButton>
         </div>
     </div>
 </template>
+
+<style>
+.hide-scrollbar {
+
+    scrollbar-width: none;
+
+    /* Hides scrollbar for Internet Explorer and Edge Legacy */
+    -ms-overflow-style: none;
+}
+
+/* Hides scrollbar for Chrome, Safari, and Opera */
+.element::-webkit-scrollbar {
+    display: none;
+}
+</style>

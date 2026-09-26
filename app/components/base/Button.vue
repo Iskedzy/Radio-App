@@ -77,6 +77,8 @@ const colors: Record<
         background: '#F5F3F3',
         text: '#1B1C1C',
         hover: '#E2E0E0',
+        active: '#1B1C1C',
+        activeText: '#FFFFFF',
     },
 
     lightGrey: {

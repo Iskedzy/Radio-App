@@ -5,14 +5,14 @@ import Navbar from './components/layout/Navbar.vue'
 
 <template>
   <main class="w-full min-h-screen overflow-x-hidden">
-    <AppHeader />
+    <div class="sticky top-0">
+      <AppHeader />
+    </div>
 
-    <NuxtPage 
-    :transition="{
-      name:'page',
-      mode:'out-in'
-    }"
-    />
+    <NuxtPage :transition="{
+      name: 'page',
+      mode: 'out-in'
+    }" />
 
     <div class="lg:hidden sticky bottom-0">
       <Navbar type="Mobile" />
