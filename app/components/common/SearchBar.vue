@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
 type SearchBarType = "Mobile" | "Desktop";
 
 interface Props {
@@ -18,7 +16,7 @@ const { placeholder } = usePlaceholder();
   <div
     :class="[
       'relative',
-      props.type === 'Mobile' ? 'rounded-full bg-gradient-to-r  from-white from-50% to-[#BA0036]/5 to-70% p-5 w-[25rem] shadow' : '',
+      props.type === 'Mobile' ? 'rounded-full bg-gradient-to-r  from-white from-50% to-[#BA0036]/5 to-70% p-3 w-[23rem] shadow' : '',
     ]"
   >
     <BaseIcon
