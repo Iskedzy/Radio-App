@@ -6,7 +6,7 @@ import Navigation from "../common/Navigation.vue";
 </script>
 
 <template>
-    <div class="flex justify-between items-center px-10 md:px-10 lg:px-24 py-4 bg-white shadow sticky top-0">
+    <div class="flex justify-between items-center px-5 md:px-10 lg:px-24 py-4 bg-white shadow sticky top-0">
         <div class="flex gap-5 items-center">
             <RadioHeader />
             <div class="hidden lg:block lg:p-1 lg:bg-[#EFEDED] rounded-full">

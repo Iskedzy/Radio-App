@@ -3,8 +3,8 @@ import RiwayatItems from "../common/riwayatItems.vue";
 </script>
 
 <template>
-  <div class="flex flex-col w-full mb-[10rem]">
-    <div class="flex flex-row justify-between items-center w-full">
+  <div class="flex flex-col w-full mb-[10rem] mt-5">
+    <div class="flex flex-row justify-between items-center w-full px-5">
       <BaseText type="h2" size="lg" color="darkGrey" track="wide">
         Riwayat Terakhir
       </BaseText>
@@ -15,6 +15,8 @@ import RiwayatItems from "../common/riwayatItems.vue";
         </BaseText>
       </NuxtLink>
     </div>
+
     <RiwayatItems />
+
   </div>
 </template>

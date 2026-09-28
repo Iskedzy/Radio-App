@@ -4,7 +4,7 @@ import Navbar from './components/layout/Navbar.vue'
 </script>
 
 <template>
-    <main class="w-full min-h-screen">
+    <main class="w-full min-h-screen overflow-x-hidden">
         <div class="sticky top-0 z-50">
             <AppHeader />
         </div>

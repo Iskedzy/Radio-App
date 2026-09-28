@@ -32,7 +32,7 @@ const selectGenre = (id: number) => {
 </script>
 
 <template>
-    <div class="flex w-full flex-row gap-1.5 overflow-x-auto py-1.5 hide-scrollbar">
+    <div class="flex w-screen px-5 flex-row gap-1.5 overflow-x-auto py-1.5 hide-scrollbar">
         <div v-for="genre in Genres" :key="genre.id" class="shrink-0">
             <BaseButton variant="ghost" size="sm" color="snow" :active="activeGenre === genre.id" class="px-5 py-2"
             @click="selectGenre(genre.id)">

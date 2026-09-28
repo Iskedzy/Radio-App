@@ -40,9 +40,9 @@ const favorites = ref<favorite[]>([
 </script>
 
 <template>
-    <div class="flex w-screen flex-row items-start gap-5 overflow-x-auto px-10 hide-scrollbar">
+    <div class="flex w-screen flex-row items-center gap-5 overflow-x-auto px-5 hide-scrollbar">
         <div v-for="favorit in favorites" :key="favorit.id"
-            class="flex justify-center items-start flex-col p-3 w-[12rem] h-[17rem] bg-[#F5F3F3] rounded-3xl gap-3">
+            class="flex justify-start items-start flex-col p-3 w-[12rem] h-[17rem] bg-[#F5F3F3] rounded-3xl gap-3">
             <BaseImages type="4x3" size="md" :src="favorit.img">
             </BaseImages>
             <div class="flex flex-col">
