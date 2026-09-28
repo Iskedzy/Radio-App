@@ -3,7 +3,7 @@ import RiwayatItems from "../common/riwayatItems.vue";
 </script>
 
 <template>
-  <div class="flex flex-col w-full mb-[10rem] mt-5">
+  <div class="flex flex-col w-full mt-5">
     <div class="flex flex-row justify-between items-center w-full px-5">
       <BaseText type="h2" size="lg" color="darkGrey" track="wide">
         Riwayat Terakhir
