@@ -50,7 +50,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="bg-gradient-to-t from-white from-30% to-white/0 to-40% rounded-3xl shadow w-[25rem] h-[30rem]">
+    <div class="bg-gradient-to-t from-white from-30% to-white/0 to-40% rounded-3xl shadow w-full h-[30rem]">
         <div class="flex flex-col shrink-0 p-4 w-full gap-5">
 
             <div class="flex justify-between items-center w-full">

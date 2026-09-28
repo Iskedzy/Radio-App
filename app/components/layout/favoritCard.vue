@@ -5,7 +5,7 @@ import favoriteItems from '../common/favoriteItems.vue';
 
 <template>
     <div class="flex flex-col justify-center items-center gap-5 py-5">
-        <div class="flex justify-between w-full justify-center items-center gap-[4rem] shrink-0 px-5">
+        <div class="flex justify-between w-full justify-center items-center gap-[4rem] shrink-0 px-10">
             <div>
                 <BaseText type="h2" size="lg" color="darkGrey" track="wide">
                     Favorit Pendengar

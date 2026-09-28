@@ -31,7 +31,7 @@ const riwayates = ref<riwayat[]>([
 </script>
 
 <template>
-  <div class="flex flex-col items-center p-1 gap-2 mt-3">
+  <div class="flex flex-col items-center p-1 gap-2 w-full mt-3">
     <div
       v-for="riwayat in riwayates"
       :key="riwayat.id"

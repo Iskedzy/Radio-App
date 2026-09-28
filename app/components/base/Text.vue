@@ -32,6 +32,7 @@ interface Props {
     size?: TextSize
     color?: TextColor
     track?: TextTracking
+    wrap?: boolean
     textFont?: string
 }
 
@@ -40,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
     size: 'sm',
     color: 'darkGrey',
     track: 'none' ,
+    wrap: false,
     textFont : 'Inter',
 })
 
@@ -78,6 +80,7 @@ const CurrentClass = computed(() => [
     TextSizes[props.size],
     TextColor[props.color],
     TextTrack[props.track],
+    props.wrap ? 'whitespace-normal' : 'whitespace-nowrap' ,
     props.textFont
 ])
 
@@ -87,7 +90,6 @@ const CurrentClass = computed(() => [
     <component
     :is="type"
     :class="CurrentClass">
-
     <slot />
 </component>
 
