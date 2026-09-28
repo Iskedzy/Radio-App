@@ -102,7 +102,6 @@ const isDisabled = computed(() => {
 })
 
 const buttonClasses = computed(() => [
-    'inline-flex items-center justify-center',
     'font-medium',
     'transition-colors duration-200',
     'focus:outline-none',
