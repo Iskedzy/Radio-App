@@ -3,6 +3,7 @@ import SearchBar from '~/components/common/SearchBar.vue';
 import Genre from '~/components/common/Genre.vue';
 import PlayerCard from '~/components/layout/playerCard.vue';
 import FavoritCard from '~/components/layout/favoritCard.vue';
+import RiwayatCard from '~/components/layout/riwayatCard.vue';
 
 
 </script>
@@ -19,6 +20,7 @@ import FavoritCard from '~/components/layout/favoritCard.vue';
 
         <PlayerCard />
         <FavoritCard />
+        <RiwayatCard />
 
     </div>
 </template>
