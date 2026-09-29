@@ -21,7 +21,7 @@ const isActive = (route: string) => {
 <template>
     <nav class="flex flex-row items-center gap-2">
         <NuxtLink v-for="item in navigationItems" :key="item.route" :to="item.route">
-            <BaseButton :active="isActive(item.route)" variant="ghost" size="sm"
+            <BaseButton :active="isActive(item.route)" variant="text" shape="pill" size="sm"
                 :color="props.type === 'Mobile' ? 'white' : 'lightGrey'">
 
                 {{ item.label }}

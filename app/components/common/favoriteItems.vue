@@ -65,7 +65,7 @@ const favorites = ref<favorite[]>([
                     </BaseText>
                 </div>
 
-                <BaseButton variant="primary" :rounded="true" color="white" size="sm"
+                <BaseButton variant="contained" shape="circle" color="white" size="sm"
                     class="flex justify-center items-center w-[2.5rem] h-[2.5rem] shrink-0">
                     <BaseIcon name="play-red" size="sm" />
                 </BaseButton>

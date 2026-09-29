@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <BaseButton color="white" size="sm" class="w-full shadow mt-5">
+  <BaseButton variant="contained" shape="pill" color="white" size="sm" class="w-full shadow mt-5">
     <div class="flex items-center gap-3">
       <div class="p-3.5 bg-[#EFEDED] rounded-full">
         <BaseIcon name="google" size="sm" />
