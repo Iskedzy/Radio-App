@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <BaseButton :rounded=true color="red" size="sm">
+    <BaseButton variant="contained" shape="circle" color="primary" size="sm">
         <BaseIcon name='profile' size="sm" /> 
     </BaseButton>
 </template> 

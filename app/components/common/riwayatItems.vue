@@ -1,4 +1,3 @@
-```vue
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 
@@ -168,7 +167,7 @@ onUnmounted(() => {
       </div>
 
       <div class="shrink-0">
-        <BaseButton :rounded="true" color="white" size="sm" class="shadow">
+        <BaseButton variant="contained" shape="circle" color="white" size="sm" class="shadow">
           <BaseIcon name="Loop" size="sm" />
         </BaseButton>
       </div>
@@ -191,4 +190,4 @@ onUnmounted(() => {
   }
 }
 </style>
-```
+

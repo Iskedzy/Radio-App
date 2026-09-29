@@ -9,6 +9,15 @@ dist
 # Node dependencies
 node_modules
 
+# Yarn Berry runtime (project memakai nodeLinker: node-modules, bukan PnP)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
 # Logs
 logs
 *.log

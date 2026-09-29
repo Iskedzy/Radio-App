@@ -1,187 +1,358 @@
-```vue
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
-type ButtonVariant =
-    | 'primary'
-    | 'secondary'
-    | 'ghost'
-    | 'outline'
-    | 'danger'
-    | 'circle'
+type ButtonVariant = 'text' | 'outlined' | 'contained'
 
-type ButtonSize =
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | 'icon'
+type ButtonSize = 'sm' | 'md' | 'lg'
 
-type ButtonColor =
-    | 'white'
-    | 'red'
-    | 'lightGrey'
-    | 'darkGrey'
-    | 'snow'
+type ButtonShape = 'rounded' | 'pill' | 'circle'
+
+type ButtonColor = 'primary' | 'secondary' | 'white' | 'lightGrey' | 'snow'
+
+type ButtonType = 'button' | 'submit' | 'reset'
+
+interface ColorToken {
+    main: string
+    contrast: string
+    hover: string
+    surface: string
+    activeMain?: string
+    activeContrast?: string
+}
 
 interface Props {
     variant?: ButtonVariant
     size?: ButtonSize
+    shape?: ButtonShape
     color?: ButtonColor
-    rounded?: boolean
+    active?: boolean
     disabled?: boolean
     loading?: boolean
-    active?: boolean
-    activeText?: boolean
-    type?: 'button' | 'submit' | 'reset'
     fullWidth?: boolean
+    type?: ButtonType
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    variant: 'primary',
+    variant: 'text',
     size: 'md',
-    color: 'lightGrey',
-    rounded: true,
+    shape: 'rounded',
+    color: 'primary',
+    active: false,
     disabled: false,
     loading: false,
-    active: false,
-    type: 'button',
     fullWidth: false,
+    type: 'button',
 })
 
-const colors: Record<
-    ButtonColor,
-    {
-        background: string
-        text: string
-        hover: string
-        activeText?: string
-        active?: string
-    }
-> = {
-    white: {
-        background: '#FFFFFF',
-        text: '#1B1C1C',
-        activeText: '#BA0036',
-        hover: '#F5F5F5',
-    },
-
-    red: {
-        background: '#BA0036',
-        text: '#FFFFFF',
+const colors: Record<ButtonColor, ColorToken> = {
+    primary: {
+        main: '#BA0036',
+        contrast: '#FFFFFF',
         hover: '#9E002E',
+        surface: '#BA0036',
     },
 
-    snow: {
-        background: '#F5F3F3',
-        text: '#1B1C1C',
-        hover: '#E2E0E0',
-        active: '#1B1C1C',
-        activeText: '#FFFFFF',
+    secondary: {
+        main: '#1B1C1C',
+        contrast: '#FFFFFF',
+        hover: '#303131',
+        surface: '#1B1C1C',
+    },
+
+    white: {
+        main: '#FFFFFF',
+        contrast: '#1B1C1C',
+        hover: '#F5F5F5',
+        surface: '#1B1C1C',
+        activeContrast: '#BA0036',
     },
 
     lightGrey: {
-        background: '#EFEDED',
-        text: '#1B1C1C',
+        main: '#EFEDED',
+        contrast: '#1B1C1C',
         hover: '#E2E0E0',
-        active: '#E9E8E7'
+        surface: '#1B1C1C',
+        activeMain: '#E9E8E7',
     },
 
-    darkGrey: {
-        background: '#1B1C1C',
-        text: '#FFFFFF',
-        hover: '#303131',
+    snow: {
+        main: '#F5F3F3',
+        contrast: '#1B1C1C',
+        hover: '#E2E0E0',
+        surface: '#1B1C1C',
+        activeMain: '#1B1C1C',
+        activeContrast: '#FFFFFF',
     },
+}
+
+const buttonSizes: Record<ButtonSize, string> = {
+    sm: 'px-2.5 py-1 text-[13px]',
+    md: 'px-4 py-1.5 text-sm',
+    lg: 'px-[22px] py-2 text-[15px]',
+}
+
+const buttonShapes: Record<ButtonShape, string> = {
+    rounded: 'rounded',
+    pill: 'rounded-full',
+    circle: 'rounded-full',
 }
 
 const currentColor = computed(() => colors[props.color])
 
-const isDisabled = computed(() => {
-    return props.disabled || props.loading
-})
+const isDisabled = computed(() => props.disabled || props.loading)
 
 const buttonClasses = computed(() => [
-    'font-medium',
-    'transition-colors duration-200',
-    'focus:outline-none',
-    'focus-visible:ring-2',
-    'focus-visible:ring-offset-2',
-    'disabled:pointer-events-none',
-    'disabled:opacity-50',
-    'shrink-0',
+    'btn',
+    `btn--${props.variant}`,
 
-    props.rounded ? 'rounded-full' : 'rounded-2xl',
+    'relative inline-flex select-none items-center justify-center gap-2',
+    'whitespace-nowrap font-medium leading-7',
+    'transition-all duration-200 ease-out',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
 
-    {
-        'p-2 text-xs gap-2':
-            props.size === 'xs',
+    buttonSizes[props.size],
+    buttonShapes[props.shape],
 
-        'p-3 text-sm gap-2':
-            props.size === 'sm',
-
-        'p-4 text-sm gap-2':
-            props.size === 'md',
-
-        'p-5 text-base gap-2':
-            props.size === 'lg',
-
-        'p-8 text-lg gap-2':
-            props.size === 'xl',
-
-        'h-11 w-11 gap-2':
-            props.size === 'icon',
-    },
+    props.shape !== 'circle' ? 'min-w-16' : '',
 
     {
-        'w-full':
-            props.fullWidth,
+        'w-full': props.fullWidth,
+        'btn--active': props.active,
     },
 ])
 
 const buttonStyles = computed(() => ({
-    '--button-background': currentColor.value.background,
-    '--button-text': currentColor.value.text,
-    '--button-hover': currentColor.value.hover,
-    '--button-active':
-        currentColor.value.active ?? currentColor.value.background,
-    '--button-active-text':
-        currentColor.value.activeText ?? currentColor.value.text,
+    '--btn-main': currentColor.value.main,
+    '--btn-contrast': currentColor.value.contrast,
+    '--btn-hover': currentColor.value.hover,
+    '--btn-surface': currentColor.value.surface,
 
+    '--btn-active-main': currentColor.value.activeMain ?? currentColor.value.main,
+    '--btn-active-contrast': currentColor.value.activeContrast ?? currentColor.value.contrast,
 
-    backgroundColor: props.active
-        ? 'var(--button-active)'
-        : 'var(--button-background)',
-
-    color: props.active
-        ? 'var(--button-active-text)'
-        : 'var(--button-text)',
+    '--btn-focus': props.variant === 'contained'
+        ? currentColor.value.contrast
+        : currentColor.value.surface,
 }))
+
+interface Ripple {
+    id: number
+    left: number
+    top: number
+    size: number
+}
+
+const buttonRef = ref<HTMLButtonElement | null>(null)
+const ripples = ref<Ripple[]>([])
+
+let rippleId = 0
+
+const createRipple = (event: PointerEvent) => {
+    if (isDisabled.value) {
+        return
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return
+    }
+
+    const element = buttonRef.value
+
+    if (!element) {
+        return
+    }
+
+    const bounds = element.getBoundingClientRect()
+    const size = Math.max(bounds.width, bounds.height)
+
+    ripples.value.push({
+        id: rippleId++,
+        left: event.clientX - bounds.left - size / 2,
+        top: event.clientY - bounds.top - size / 2,
+        size,
+    })
+}
+
+const removeRipple = (id: number) => {
+    ripples.value = ripples.value.filter((ripple) => ripple.id !== id)
+}
 </script>
 
 <template>
-    <button :type="type" :disabled="isDisabled" :class="buttonClasses" :style="{
-        ...buttonStyles,
-        '--button-hover': currentColor.hover,
-    }">
-        <span v-if="loading" class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-            aria-hidden="true" />
+    <button ref="buttonRef" :type="type" :disabled="isDisabled" :aria-busy="loading || undefined" :class="buttonClasses"
+        :style="buttonStyles" @pointerdown="createRipple">
+
+        <span class="btn__ripple-layer" aria-hidden="true">
+            <span v-for="ripple in ripples" :key="ripple.id" class="btn__ripple" :style="{
+                left: `${ripple.left}px`,
+                top: `${ripple.top}px`,
+                width: `${ripple.size}px`,
+                height: `${ripple.size}px`,
+            }" @animationend="removeRipple(ripple.id)" />
+        </span>
+
+        <span v-if="loading" class="btn__spinner" aria-hidden="true" />
 
         <span v-if="$slots.icon && !loading" class="shrink-0">
             <slot name="icon" />
         </span>
 
-        <span v-if="size !== 'icon'">
-            <slot />
-        </span>
-
-        <slot v-else name="icon" />
+        <slot />
     </button>
 </template>
 
 <style scoped>
-button:hover:not(:disabled) {
-    background-color: var(--button-hover);
+.btn {
+    --btn-overlay: color-mix(in srgb, var(--btn-surface) 8%, transparent);
+    --btn-outline: color-mix(in srgb, var(--btn-surface) 50%, transparent);
+    --btn-ripple: color-mix(in srgb, var(--btn-surface) 24%, transparent);
+    --btn-ripple-invert: color-mix(in srgb, var(--btn-contrast) 35%, transparent);
+}
+
+/* text */
+
+.btn--text {
+    background-color: transparent;
+    color: var(--btn-surface);
+}
+
+.btn--text:hover:not(:disabled) {
+    background-color: var(--btn-overlay);
+}
+
+/* outlined */
+
+.btn--outlined {
+    background-color: transparent;
+    color: var(--btn-surface);
+}
+
+.btn--outlined::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    border: 1px solid var(--btn-surface);
+    border-color: var(--btn-outline);
+    border-radius: inherit;
+
+    pointer-events: none;
+    transition: border-color 200ms ease-out;
+}
+
+.btn--outlined:hover:not(:disabled) {
+    background-color: var(--btn-overlay);
+}
+
+.btn--outlined:hover:not(:disabled)::after {
+    border-color: var(--btn-surface);
+}
+
+/* contained */
+
+.btn--contained {
+    background-color: var(--btn-main);
+    color: var(--btn-contrast);
+
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.20);
+}
+
+.btn--contained:hover:not(:disabled) {
+    background-color: var(--btn-hover);
+
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* selected */
+
+.btn--active {
+    background-color: var(--btn-active-main);
+    color: var(--btn-active-contrast);
+}
+
+.btn--outlined.btn--active::after {
+    border-color: var(--btn-active-contrast);
+}
+
+/* states */
+
+.btn:focus-visible {
+    --tw-ring-color: var(--btn-focus);
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.38;
+}
+
+/* ripple */
+
+.btn__ripple-layer {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+    border-radius: inherit;
+
+    pointer-events: none;
+}
+
+.btn__ripple {
+    position: absolute;
+
+    border-radius: 9999px;
+    background-color: var(--btn-ripple);
+
+    animation: btn-ripple 550ms ease-out forwards;
+}
+
+.btn--contained .btn__ripple {
+    background-color: var(--btn-ripple-invert);
+}
+
+/* loader */
+
+.btn__spinner {
+    display: inline-block;
+
+    width: 1em;
+    height: 1em;
+
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 9999px;
+
+    animation: btn-spin 700ms linear infinite;
+}
+
+@keyframes btn-ripple {
+    from {
+        opacity: 0.30;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .btn,
+    .btn__ripple {
+        transition-duration: 1ms;
+        animation-duration: 1ms;
+    }
+
+    .btn__spinner {
+        animation-duration: 2s;
+    }
 }
 </style>
-```
