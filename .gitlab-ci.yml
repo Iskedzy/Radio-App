@@ -1,0 +1,35 @@
+include:
+  - project: "gagasnusatech/radio/prambanan"
+    ref: main
+    file:
+      - /templates/base.yml
+      - /templates/build-image.yml
+      - /templates/runtime/cicd.yml
+      - /templates/runtime/target.yml
+
+variables:
+  ENV_PROJECT_PATH: "gagasnusatech/radio/sewu"
+  CI_CD_PROJECT_PATH: "gagasnusatech/radio/prambanan"
+  CI_CD_REF: "main"
+
+verify:
+  stage: verify
+  image: node:22-bookworm
+  interruptible: true
+  timeout: 20m
+  variables:
+    HUSKY: "0"
+  before_script:
+    - corepack enable
+    - corepack prepare yarn@stable --activate
+  script:
+    - yarn install --immutable
+    - yarn lint
+    - yarn typecheck
+    - yarn build
+  cache:
+    key: "$CI_PROJECT_PATH-slash-$CI_COMMIT_REF_SLUG-yarn"
+    paths:
+      - node_modules/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "trigger"'
