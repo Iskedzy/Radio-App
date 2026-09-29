@@ -10,9 +10,7 @@
         <BaseText type="h3" size="md" color="darkGrey">
           Sinkronisasi Riwayat & Stasiun Favorit
         </BaseText>
-        <BaseText type="p" size="sm" color="lightGrey">
-          Hubungkan dengan Akun Google
-        </BaseText>
+        <BaseText type="p" size="sm" color="lightGrey"> Hubungkan dengan Akun Google </BaseText>
       </div>
     </div>
   </BaseButton>

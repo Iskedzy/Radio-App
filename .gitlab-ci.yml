@@ -1,5 +1,5 @@
 include:
-  - project: "gagasnusatech/radio/prambanan"
+  - project: 'gagasnusatech/radio/prambanan'
     ref: main
     file:
       - /templates/base.yml
@@ -8,9 +8,9 @@ include:
       - /templates/runtime/target.yml
 
 variables:
-  ENV_PROJECT_PATH: "gagasnusatech/radio/sewu"
-  CI_CD_PROJECT_PATH: "gagasnusatech/radio/prambanan"
-  CI_CD_REF: "main"
+  ENV_PROJECT_PATH: 'gagasnusatech/radio/sewu'
+  CI_CD_PROJECT_PATH: 'gagasnusatech/radio/prambanan'
+  CI_CD_REF: 'main'
 
 verify:
   stage: verify
@@ -18,17 +18,18 @@ verify:
   interruptible: true
   timeout: 20m
   variables:
-    HUSKY: "0"
+    HUSKY: '0'
   before_script:
     - corepack enable
     - corepack prepare yarn@4.10.3 --activate
   script:
     - yarn install --immutable
+    - yarn format:check
     - yarn lint
     - yarn typecheck
     - yarn build
   cache:
-    key: "$CI_PROJECT_PATH-slash-$CI_COMMIT_REF_SLUG-yarn"
+    key: '$CI_PROJECT_PATH-slash-$CI_COMMIT_REF_SLUG-yarn'
     paths:
       - node_modules/
   rules:
