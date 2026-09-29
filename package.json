@@ -2,6 +2,7 @@
   "name": "Radio-App",
   "type": "module",
   "private": true,
+  "packageManager": "yarn@4.10.3",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

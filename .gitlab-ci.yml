@@ -21,7 +21,7 @@ verify:
     HUSKY: "0"
   before_script:
     - corepack enable
-    - corepack prepare yarn@stable --activate
+    - corepack prepare yarn@4.10.3 --activate
   script:
     - yarn install --immutable
     - yarn lint
