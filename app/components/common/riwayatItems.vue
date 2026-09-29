@@ -1,68 +1,68 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 interface Riwayat {
-  id: number;
-  judul: string;
-  genre: string;
-  img: string;
+  id: number
+  judul: string
+  genre: string
+  img: string
 }
 
 interface MarqueeItem {
-  container: HTMLElement | null;
-  content: HTMLElement | null;
-  containerWidth: number;
-  contentWidth: number;
-  duration: number;
-  shouldScroll: boolean;
+  container: HTMLElement | null
+  content: HTMLElement | null
+  containerWidth: number
+  contentWidth: number
+  duration: number
+  shouldScroll: boolean
 }
 
 const riwayates = ref<Riwayat[]>([
   {
     id: 1,
-    judul: "Hard Rock FM • 87.6 FM",
-    genre: "Classic Rock, Lifestyle, Talk • Kemarin, 21:30",
-    img: "RockFM",
+    judul: 'Hard Rock FM • 87.6 FM',
+    genre: 'Classic Rock, Lifestyle, Talk • Kemarin, 21:30',
+    img: 'RockFM',
   },
   {
     id: 2,
-    judul: "Suara Surabaya • 100.0 FM",
-    genre: "Informasi Kota & Dinamika Warga • Kemarin, 17:15",
-    img: "SuaraSurabaya",
+    judul: 'Suara Surabaya • 100.0 FM',
+    genre: 'Informasi Kota & Dinamika Warga • Kemarin, 17:15',
+    img: 'SuaraSurabaya',
   },
   {
     id: 3,
-    judul: "Brava Radio • 103.8 FM",
-    genre: "Smooth Jazz & Relaksasi Harian 2 • Hari Lalu",
-    img: "Brava",
+    judul: 'Brava Radio • 103.8 FM',
+    genre: 'Smooth Jazz & Relaksasi Harian 2 • Hari Lalu',
+    img: 'Brava',
   },
-]);
+])
 
-const marqueeItems = ref<Record<number, MarqueeItem>>({});
+const marqueeItems = ref<Record<number, MarqueeItem>>({})
 
-const observers = new Map<number, ResizeObserver>();
+const observers = new Map<number, ResizeObserver>()
 
 const checkOverflow = async (id: number) => {
-  await nextTick();
+  await nextTick()
 
-  const item = marqueeItems.value[id];
+  const item = marqueeItems.value[id]
 
-  if (!item?.container || !item?.content) return;
+  if (!item?.container || !item?.content) return
 
-  item.containerWidth = item.container.clientWidth;
-  item.contentWidth = item.content.scrollWidth;
+  item.containerWidth = item.container.clientWidth
+  item.contentWidth = item.content.scrollWidth
 
   if (item.contentWidth > item.containerWidth) {
-    item.shouldScroll = true;
+    item.shouldScroll = true
 
-    const distance = item.contentWidth - item.containerWidth;
+    const distance = item.contentWidth - item.containerWidth
 
-    item.duration = Math.max(3, distance / 40);
+    item.duration = Math.max(3, distance / 40)
   } else {
-    item.shouldScroll = false;
-    item.duration = 0;
+    item.shouldScroll = false
+    item.duration = 0
   }
-};
+}
 
 const setContainer = (id: number, element: HTMLElement | null) => {
   if (!marqueeItems.value[id]) {
@@ -73,11 +73,11 @@ const setContainer = (id: number, element: HTMLElement | null) => {
       contentWidth: 0,
       duration: 0,
       shouldScroll: false,
-    };
+    }
   }
 
-  marqueeItems.value[id].container = element;
-};
+  marqueeItems.value[id].container = element
+}
 
 const setContent = (id: number, element: HTMLElement | null) => {
   if (!marqueeItems.value[id]) {
@@ -88,39 +88,39 @@ const setContent = (id: number, element: HTMLElement | null) => {
       contentWidth: 0,
       duration: 0,
       shouldScroll: false,
-    };
+    }
   }
 
-  marqueeItems.value[id].content = element;
-};
+  marqueeItems.value[id].content = element
+}
 
 onMounted(async () => {
-  await nextTick();
+  await nextTick()
 
   for (const riwayat of riwayates.value) {
-    await checkOverflow(riwayat.id);
+    await checkOverflow(riwayat.id)
 
-    const item = marqueeItems.value[riwayat.id];
+    const item = marqueeItems.value[riwayat.id]
 
-    if (!item?.container) continue;
+    if (!item?.container) continue
 
     const observer = new ResizeObserver(() => {
-      checkOverflow(riwayat.id);
-    });
+      checkOverflow(riwayat.id)
+    })
 
-    observer.observe(item.container);
+    observer.observe(item.container)
 
-    observers.set(riwayat.id, observer);
+    observers.set(riwayat.id, observer)
   }
-});
+})
 
 onUnmounted(() => {
   observers.forEach((observer) => {
-    observer.disconnect();
-  });
+    observer.disconnect()
+  })
 
-  observers.clear();
-});
+  observers.clear()
+})
 </script>
 
 <template>
@@ -154,9 +154,7 @@ onUnmounted(() => {
                 (marqueeItems[riwayat.id]?.contentWidth ?? 0) -
                   (marqueeItems[riwayat.id]?.containerWidth ?? 0),
               )}px`,
-              '--marquee-duration': `${
-                marqueeItems[riwayat.id]?.duration ?? 0
-              }s`,
+              '--marquee-duration': `${marqueeItems[riwayat.id]?.duration ?? 0}s`,
             }"
           >
             <BaseText type="p" size="xs" color="lightGrey" track="wide">
@@ -190,4 +188,3 @@ onUnmounted(() => {
   }
 }
 </style>
-

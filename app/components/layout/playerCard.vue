@@ -1,53 +1,52 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
-import Images from "../base/Images.vue";
-import MediaControl from "../common/mediaControl.vue";
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import MediaControl from '../common/mediaControl.vue'
 
-const container = ref<HTMLElement | null>(null);
-const content = ref<HTMLElement | null>(null);
+const container = ref<HTMLElement | null>(null)
+const content = ref<HTMLElement | null>(null)
 
-const containerWidth = ref(0);
-const contentWidth = ref(0);
-const duration = ref(0);
-const shouldScroll = ref(false);
+const containerWidth = ref(0)
+const contentWidth = ref(0)
+const duration = ref(0)
+const shouldScroll = ref(false)
 
-let observer: ResizeObserver | null = null;
+let observer: ResizeObserver | null = null
 
 const checkOverflow = async () => {
-  await nextTick();
+  await nextTick()
 
-  if (!container.value || !content.value) return;
+  if (!container.value || !content.value) return
 
-  containerWidth.value = container.value.clientWidth;
-  contentWidth.value = content.value.scrollWidth;
+  containerWidth.value = container.value.clientWidth
+  contentWidth.value = content.value.scrollWidth
 
   if (contentWidth.value > containerWidth.value) {
-    shouldScroll.value = true;
+    shouldScroll.value = true
 
-    const distance = contentWidth.value - containerWidth.value;
+    const distance = contentWidth.value - containerWidth.value
 
-    duration.value = Math.max(3, distance / 40);
+    duration.value = Math.max(3, distance / 40)
   } else {
-    shouldScroll.value = false;
-    duration.value = 0;
+    shouldScroll.value = false
+    duration.value = 0
   }
-};
+}
 
 onMounted(async () => {
-  await checkOverflow();
+  await checkOverflow()
 
   if (container.value) {
     observer = new ResizeObserver(() => {
-      checkOverflow();
-    });
+      checkOverflow()
+    })
 
-    observer.observe(container.value);
+    observer.observe(container.value)
   }
-});
+})
 
 onUnmounted(() => {
-  observer?.disconnect();
-});
+  observer?.disconnect()
+})
 </script>
 
 <template>
@@ -57,17 +56,11 @@ onUnmounted(() => {
     <div class="flex flex-col justify-center shrink-0 p-4 w-full gap-5">
       <div class="flex justify-between items-center w-full">
         <div class="flex justify-center items-center gap-2">
-          <div
-            class="flex items-center justify-center px-2.5 bg-[#BA0036]/10 rounded-full"
-          >
-            <BaseText type="h2" size="xs" color="red" track="wide">
-              TERPILIH
-            </BaseText>
+          <div class="flex items-center justify-center px-2.5 bg-[#BA0036]/10 rounded-full">
+            <BaseText type="h2" size="xs" color="red" track="wide"> TERPILIH </BaseText>
           </div>
 
-          <BaseText type="h2" size="sm" color="darkGrey" track="wide">
-            Prambors Radio
-          </BaseText>
+          <BaseText type="h2" size="sm" color="darkGrey" track="wide"> Prambors Radio </BaseText>
         </div>
 
         <div
@@ -75,20 +68,13 @@ onUnmounted(() => {
         >
           <BaseIcon name="wave" size="xs" />
 
-          <BaseText type="h2" size="xs" color="brown" track="wide">
-            102.2 FM
-          </BaseText>
+          <BaseText type="h2" size="xs" color="brown" track="wide"> 102.2 FM </BaseText>
         </div>
       </div>
 
       <div class="flex items-center w-full justify-center">
-        <BaseImages
-          type="rounded"
-          size="lg"
-          src="Heroes"
-          class="shadow shadow-lg"
-        >
-          <span></span>
+        <BaseImages type="rounded" size="lg" src="Heroes" class="shadow shadow-lg">
+          <span />
         </BaseImages>
       </div>
 
@@ -110,10 +96,7 @@ onUnmounted(() => {
                 'animate-marquee': shouldScroll,
               }"
               :style="{
-                '--marquee-distance': `-${Math.max(
-                  0,
-                  contentWidth - containerWidth,
-                )}px`,
+                '--marquee-distance': `-${Math.max(0, contentWidth - containerWidth)}px`,
                 '--marquee-duration': `${duration}s`,
               }"
             >
@@ -125,20 +108,16 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <MediaControl/>
+      <MediaControl />
 
-      <div
-        class="flex justify-between full w-full py-2 px-5 bg-[#EFEDED] rounded-full"
-      >
+      <div class="flex justify-between full w-full py-2 px-5 bg-[#EFEDED] rounded-full">
         <div class="flex gap-3">
           <BaseIcon name="signal-speed" size="sm" />
           <BaseText type="h3" size="sm" color="lightGrey" track="wide">
             Kualitas HD Audio 320kbps
           </BaseText>
         </div>
-        <BaseText type="h2" size="sm" color="red" track="wide">
-          LIVE ON-AIR
-        </BaseText>
+        <BaseText type="h2" size="sm" color="red" track="wide"> LIVE ON-AIR </BaseText>
       </div>
     </div>
   </div>
